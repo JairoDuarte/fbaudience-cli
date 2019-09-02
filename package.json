@@ -23,12 +23,13 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "facebook-nodejs-business-sdk": "^4.0.4",
     "gluegun": "^2.1.0"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
+    "jest": "^23.6.0",
     "prettier": "^1.12.1",
-    "jest": "^23.6.0"
+    "standard": "^12.0.1"
   },
   "jest": {
     "testEnvironment": "node"
@@ -39,7 +40,8 @@
     ]
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "printWidth": 120
   },
   "author": "Jairo Duarte (United Remote)"
 }
