@@ -16,4 +16,10 @@ describe('Test command add audience', function() {
 
     expect(output).toContain('Audience added with success');
   });
+
+  test('should list all audience', async () => {
+    const output = await cli(' audience   --list');
+
+    expect(output).toContain(' name');
+  });
 });

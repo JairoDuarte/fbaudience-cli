@@ -1,7 +1,10 @@
+'use strict';
+
 const facebookService = require('../services/facebook');
 
 module.exports = {
   name: 'audience',
+  alias: 'aud',
   run: async toolbox => {
     const { print, parameters, api } = toolbox;
 
@@ -14,28 +17,16 @@ module.exports = {
         return print.error('name and description are required');
       }
 
-      const response = await facebookService.addAudience({ name, description }, api);
-
-      if (response.data.error) {
-        const {
-          data: {
-            error: { message, type }
-          }
-        } = response;
-        print.error(`Error: ${message}  ${type}`);
-      } else print.success('Audience added with success');
+      await facebookService.addAudience({ name, description }, api);
+      print.success('Audience added with success');
     }
 
     if (action.list) {
-      const response = await facebookService.getAudiences(api);
-      if (response.message) {
-        const { message, type } = response;
-        print.error(`Error: ${message}  ${type}`);
-      } else {
-        response.data.forEach(audience => {
-          print.success(`id: ${audience.id} name: ${audience.name}`);
-        });
-      }
+      const audiences = await facebookService.getAudiences(api);
+
+      audiences.forEach(audience => {
+        print.success(`id: ${audience.id} name: ${audience.name}`);
+      });
     }
   }
 };

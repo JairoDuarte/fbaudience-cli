@@ -1,17 +1,15 @@
 'use strict';
 
-const foo = toolbox => () => {
-  toolbox.print.info('called foo extension');
-};
-
-const api = toolbox => () => {
+const api = toolbox => {
   return toolbox.http.create({
-    baseURL: 'https://api.github.com',
-    headers: { Accept: 'application/vnd.github.v3+json' }
+    baseURL: 'https://graph.facebook.com/',
+    headers: { Accept: 'application/json' }
   });
 };
 
-module.exports = toolbox => {
-  toolbox.foo = foo(toolbox);
+module.exports = async toolbox => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   toolbox.api = api(toolbox);
+  toolbox.validateEmail = email => re.test(String(email).toLowerCase());
 };
