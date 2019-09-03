@@ -23,6 +23,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "crypto": "^1.0.1",
     "facebook-nodejs-business-sdk": "^4.0.4",
     "gluegun": "^2.1.0"
   },
