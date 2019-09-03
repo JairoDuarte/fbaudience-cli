@@ -15,26 +15,15 @@ if (showDebugingInfo) {
   api.setDebug(true);
 }
 
-function getAudiences(api) {
+async function getAudiences(api) {
   const url = `${urlAudience}?access_token=${access_token}&fields=id,name`;
-  const response = api.get(url);
-  if (response.data.error) {
+  const response = await api.get(url);
+  if (response.error) {
     const {
-      data: {
-        error: { message, type }
-      }
+      error: { message, type }
     } = response;
     return { message, type };
   } else return response.data;
-}
-
-function getAudienceId(name = '', audiences = []) {
-  audiences.forEach(audience => {
-    if (name.trim().toLocaleLowerCase() === audience.trim().toLocaleLowerCase()) {
-      return audience.id;
-    }
-  });
-  return null;
 }
 
 module.exports.getAudiences = getAudiences;
