@@ -30,6 +30,7 @@ async function getAudiences(api) {
     return response.data.data
   } catch (error) {
     console.error(error)
+    process.exit(0)
   }
 }
 
@@ -62,6 +63,7 @@ module.exports.addAudience = async (audience = {}, api) => {
     return response.data.data
   } catch (error) {
     console.error(error)
+    process.exit(0)
   }
 }
 
@@ -93,6 +95,7 @@ module.exports.addUsers = async (emails = [], audienceName, api) => {
     return response.data.data
   } catch (error) {
     console.error(error)
+    process.exit(0)
   }
 }
 
