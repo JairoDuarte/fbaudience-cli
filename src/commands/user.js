@@ -1,42 +1,41 @@
-'use strict';
+'use strict'
 
-const facebookService = require('../services/facebook');
+const facebookService = require('../services/facebook')
 
 module.exports = {
   name: 'user',
   alias: 'u',
   run: async toolbox => {
-    const { print, parameters, api, validateEmail } = toolbox;
+    const { print, parameters, api, validateEmail } = toolbox
 
-    const emailsList = parameters.array.slice(1);
-    const audienceName = parameters.first;
-    const action = parameters.options;
+    const emailsList = parameters.array.slice(1)
+    const audienceName = parameters.first
+    const action = parameters.options
 
     if (action.help) {
-      print.info('Example to add emails: \nfbaudience user {audienceID} {email} {email} {othersEmails}');
-      return true;
+      print.info('Example to add emails: \nfbaudience user {audienceID} {email} {email} {othersEmails}')
+      return true
     }
 
-    let invalidEmails = [];
+    let invalidEmails = []
 
     let validEmails = emailsList.filter(email => {
       if (validateEmail(email)) {
-        return true;
+        return true
       }
-      invalidEmails.push(email);
-      invalidEmails.slice;
-      return false;
-    });
+      invalidEmails.push(email)
+      return false
+    })
 
     if (invalidEmails.length > 0) {
-      print.error('Invalids Emails:');
-      invalidEmails.forEach(email => print.error(email));
+      print.error('Invalids Emails:')
+      invalidEmails.forEach(email => print.error(email))
     }
 
     if (validEmails.length > 0) {
-      await facebookService.addUsers(validEmails, audienceName, api);
+      await facebookService.addUsers(validEmails, audienceName, api)
 
-      print.success('Emails added with success');
+      print.success('Emails added with success')
     }
   }
-};
+}

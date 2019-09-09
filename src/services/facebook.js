@@ -1,45 +1,45 @@
-'use strict';
+'use strict'
 
-const { createHash } = require('crypto');
+const { createHash } = require('crypto')
 
-const Env = require('../../env.json');
+const Env = require('../../env.json')
 
-const access_token = process.env.ACCESS_TOKEN || Env.ACCESS_TOKEN;
-const id = process.env.AD_ACCOUNT_ID || Env.AD_ACCOUNT_ID;
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN || Env.ACCESS_TOKEN
+const id = process.env.AD_ACCOUNT_ID || Env.AD_ACCOUNT_ID
 
-const urlAudience = `v4.0/act_${id}/customaudiences`;
+const urlAudience = `v4.0/act_${id}/customaudiences`
 
 const toHash = emails =>
   emails.map(email => {
-    const hash = createHash('sha256');
-    return [hash.update(email).digest('hex')];
-  });
+    const hash = createHash('sha256')
+    return [hash.update(email).digest('hex')]
+  })
 
 async function getAudiences(api) {
-  const url = `${urlAudience}?access_token=${access_token}&fields=id,name`;
+  const url = `${urlAudience}?access_token=${ACCESS_TOKEN}&fields=id,name`
 
   try {
-    const response = await api.get(url);
+    const response = await api.get(url)
 
     if (response.data.error) {
-      console.error(response.data.error);
+      console.error(response.data.error)
 
-      process.exit(0);
+      process.exit(0)
     }
 
-    return response.data.data;
+    return response.data.data
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
 }
 
 function getAudienceId(name, audiences = []) {
   for (let audience of audiences) {
     if (name.trim().toLocaleLowerCase() === audience.name.trim().toLocaleLowerCase()) {
-      return audience.id;
+      return audience.id
     }
   }
-  return null;
+  return null
 }
 
 module.exports.addAudience = async (audience = {}, api) => {
@@ -47,53 +47,53 @@ module.exports.addAudience = async (audience = {}, api) => {
     ...audience,
     subtype: 'CUSTOM',
     customer_file_source: 'USER_PROVIDED_ONLY',
-    access_token
-  };
+    ACCESS_TOKEN
+  }
 
   try {
-    const response = await api.post(urlAudience, body);
+    const response = await api.post(urlAudience, body)
 
     if (response.data.error) {
-      console.error(response.data.error);
+      console.error(response.data.error)
 
-      process.exit(0);
+      process.exit(0)
     }
 
-    return response.data.data;
+    return response.data.data
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 
 module.exports.addUsers = async (emails = [], audienceName, api) => {
-  const hashEmails = toHash(emails);
+  const hashEmails = toHash(emails)
 
-  const audiences = await getAudiences(api);
-  const audienceId = getAudienceId(audienceName, audiences);
+  const audiences = await getAudiences(api)
+  const audienceId = getAudienceId(audienceName, audiences)
 
-  const urlUser = `v4.0/${audienceId}/users`;
+  const urlUser = `v4.0/${audienceId}/users`
 
   const body = {
     payload: {
       schema: ['EMAIL_SHA256'],
       data: hashEmails
     },
-    access_token
-  };
+    ACCESS_TOKEN
+  }
 
   try {
-    const response = await api.post(urlUser, body);
+    const response = await api.post(urlUser, body)
 
     if (response.data.error) {
-      console.error(response.data.error);
+      console.error(response.data.error)
 
-      process.exit(0);
+      process.exit(0)
     }
 
-    return response.data.data;
+    return response.data.data
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 
-module.exports.getAudiences = getAudiences;
+module.exports.getAudiences = getAudiences

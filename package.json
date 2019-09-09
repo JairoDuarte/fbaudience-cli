@@ -9,6 +9,7 @@
   "scripts": {
     "format": "prettier --write **/*.{js,json} && standard --fix",
     "lint": "standard",
+    "lint:fix": "standard --fix",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
@@ -42,7 +43,8 @@
   },
   "prettier": {
     "singleQuote": true,
-    "printWidth": 120
+    "printWidth": 120,
+    "semi": false
   },
   "author": "Jairo Duarte (United Remote)"
 }
