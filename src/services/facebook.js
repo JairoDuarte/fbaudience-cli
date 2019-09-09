@@ -47,7 +47,7 @@ module.exports.addAudience = async (audience = {}, api) => {
     ...audience,
     subtype: 'CUSTOM',
     customer_file_source: 'USER_PROVIDED_ONLY',
-    ACCESS_TOKEN
+    access_token: ACCESS_TOKEN
   }
 
   try {
@@ -78,7 +78,7 @@ module.exports.addUsers = async (emails = [], audienceName, api) => {
       schema: ['EMAIL_SHA256'],
       data: hashEmails
     },
-    ACCESS_TOKEN
+    access_token: ACCESS_TOKEN
   }
 
   try {

@@ -1,6 +1,6 @@
 const { system, filesystem } = require('gluegun')
 
-describe('Test command add audience', function () {
+describe('Test command add audience', function() {
   const src = filesystem.path(__dirname, '..')
 
   const cli = async cmd => system.run('node ' + filesystem.path(src, 'bin', 'fbaudience') + ` ${cmd}`)
@@ -13,7 +13,7 @@ describe('Test command add audience', function () {
 
   test('should add emails to audience', async () => {
     await cli('audience addEmailstest description --add')
-    const output = await cli('u addEmailstest test@gmail.com unitedremote@gmail.com  --add')
+    const output = await cli('u addEmailstest test@gmail.com unitedremote@gmail.com')
 
     expect(output).toContain('Emails added with success')
   })
