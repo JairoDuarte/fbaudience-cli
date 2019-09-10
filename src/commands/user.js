@@ -33,7 +33,7 @@ module.exports = {
     }
 
     if (validEmails.length > 0) {
-      await facebookService.addUsers(validEmails, audienceName, api)
+      await facebookService.addUsers(validEmails, audienceName, api())
 
       print.success('Emails added with success')
     }
