@@ -1,12 +1,14 @@
 'use strict'
 
 const facebookService = require('../services/facebook')
+const databaseService = require('../services/database')
 
 module.exports = {
   name: 'audience',
   alias: 'aud',
   run: async toolbox => {
     const { print, parameters, api } = toolbox
+    databaseService.init(api)
 
     const name = parameters.first
     const description = parameters.second
@@ -19,12 +21,12 @@ module.exports = {
       }
 
       await facebookService.addAudience({ name, description }, apiService)
+      await databaseService.addAudience({ audience: name })
       print.success('Audience added with success')
     }
 
     if (action.list) {
       const apiService = api()
-      console.log(apiService)
 
       const audiences = await facebookService.getAudiences(apiService)
 
