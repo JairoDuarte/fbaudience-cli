@@ -4,9 +4,11 @@ on:
   pull_request:
     branches:
       - master
+      - release/*
   push:
     branches:
       - master
+      - release/*
 
 jobs:
   test:
@@ -24,7 +26,7 @@ jobs:
           AD_ACCOUNT_ID: ${{secrets.AD_ACCOUNT_ID}}
           ACCESS_TOKEN: ${{secrets.ACCESS_TOKEN}}
           DB_URL: ${{secrets.DB_URL}}
-  
+
   publish-npm:
     needs: test
     runs-on: ubuntu-latest

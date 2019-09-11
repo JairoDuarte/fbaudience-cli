@@ -3,12 +3,12 @@ name: test of integration
 on:
   pull_request:
     branches:
-      - release/*
+      - feauture/*
       - develop
   push:
     branches:
       - develop
-      - release/*
+      - feauture/*
 
 jobs:
   lint:
@@ -26,7 +26,7 @@ jobs:
           AD_ACCOUNT_ID: ${{secrets.AD_ACCOUNT_ID}}
           ACCESS_TOKEN: ${{secrets.ACCESS_TOKEN}}
           DB_URL: ${{secrets.DB_URL}}
-   
+
   test:
     needs: lint
     runs-on: ubuntu-latest
