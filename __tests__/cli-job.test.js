@@ -2,7 +2,7 @@ const { system, filesystem } = require('gluegun')
 
 jest.setTimeout(30000)
 
-describe('Test command add emails', function() {
+describe('Test command add emails', function () {
   const src = filesystem.path(__dirname, '..')
 
   const cli = async cmd => system.run('node ' + filesystem.path(src, 'bin', 'fbaudience') + ` ${cmd}`)

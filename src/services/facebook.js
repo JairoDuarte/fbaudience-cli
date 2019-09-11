@@ -15,7 +15,7 @@ const toHash = emails =>
     return [hash.update(email).digest('hex')]
   })
 
-async function getAudiences(api) {
+async function getAudiences (api) {
   const url = `${urlAudience}?access_token=${ACCESS_TOKEN}&fields=id,name`
 
   try {
@@ -34,7 +34,7 @@ async function getAudiences(api) {
   }
 }
 
-function getAudienceId(name, audiences = []) {
+function getAudienceId (name, audiences = []) {
   for (let audience of audiences) {
     if (name.trim().toLocaleLowerCase() === audience.name.trim().toLocaleLowerCase()) {
       return audience.id
