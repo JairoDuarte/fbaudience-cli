@@ -19,16 +19,11 @@ jobs:
       - run: npm install
       - run: npm ci
       - run: npm test
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-      - run: npm test
-
+        env:
+          AD_ACCOUNT_ID: ${{secrets.AD_ACCOUNT_ID}}
+          ACCESS_TOKEN: ${{secrets.ACCESS_TOKEN}}
+          DB_URL: ${{secrets.DB_URL}}
+  
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
@@ -40,7 +35,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish-gpr:
     needs: build
