@@ -2,7 +2,7 @@
 
 const { createHash } = require('crypto')
 
-const Env = require('../../env.json')
+const { Env } = require('../config')
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN || Env.ACCESS_TOKEN
 const id = process.env.AD_ACCOUNT_ID || Env.AD_ACCOUNT_ID
@@ -60,7 +60,7 @@ module.exports.addAudience = async (audience = {}, api) => {
       process.exit(0)
     }
 
-    return response.data.data
+    return response.data
   } catch (error) {
     console.error(error)
     process.exit(0)
@@ -74,6 +74,7 @@ module.exports.addUsers = async (emails = [], audienceName, api) => {
   const audienceId = getAudienceId(audienceName, audiences)
 
   const urlUser = `v4.0/${audienceId}/users`
+  console.log(urlUser)
 
   const body = {
     payload: {

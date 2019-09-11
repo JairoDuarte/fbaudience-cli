@@ -20,8 +20,9 @@ module.exports = {
         return print.error('name and description are required')
       }
 
-      await facebookService.addAudience({ name, description }, apiService)
-      await databaseService.addAudience({ audience: name })
+      const { id } = await facebookService.addAudience({ name, description }, apiService)
+
+      await databaseService.addAudience({ name, id })
       print.success('Audience added with success')
     }
 
