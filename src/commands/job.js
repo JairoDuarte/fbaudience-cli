@@ -23,17 +23,17 @@ module.exports = {
         return print.error('audience name  and  jobs are required')
       }
 
-      await databaseService.addJob({ audience: audienceName, jobs })
+      await databaseService.addJob({ audienceName, jobs })
       print.success('Jobs added with success')
     }
 
     if (action.delete) {
-      const audiences = await databaseService.deleteJob({ audience: audienceName, jobs })
+      const audiences = await databaseService.deleteJob({ audienceName, jobs })
       print.success('Jobs delete with success')
     }
 
     if (action.list) {
-      const jobs = await databaseService.getJobsByAudience({ audience: audienceName })
+      const jobs = await databaseService.getJobsByAudience({ audienceName })
 
       print.success(`Jobs for ${audienceName} audience:`)
       for (const job of jobs) {

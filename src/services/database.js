@@ -1,19 +1,19 @@
-const Env = require('../../env.json')
+const { Env } = require('../config')
+
 const DB_URL = process.env.DB_URL || Env.DB_URL
 
 module.exports.init = api => {
   this.api = api(DB_URL)
 }
 
-module.exports.addJob = async ({ audience, jobs }) => {
+module.exports.addJob = async ({ audienceName, jobs }) => {
   try {
-    let audiences = await this.getAudiences(this.api)
+    let response = await this.api.get(`/audiences/${audienceName}`)
+    const audience = response.data.result
 
-    let audienceJobs = audiences[audience] || []
+    const newJobs = audience.jobs.concat(jobs)
 
-    audiences[audience] = audienceJobs.concat(jobs)
-
-    const response = await this.api.post('/', { audiences })
+    response = await this.api.put(`/audiences/${audienceName}/jobs`, newJobs)
     return response
   } catch (error) {
     console.error(error)
@@ -21,18 +21,16 @@ module.exports.addJob = async ({ audience, jobs }) => {
   }
 }
 
-module.exports.deleteJob = async ({ audience, jobs }) => {
+module.exports.deleteJob = async ({ audienceName, jobs }) => {
   try {
-    let audiences = await this.getAudiences()
+    let response = await this.api.get(`/audiences/${audienceName}/jobs`)
 
-    let audienceJobs = audiences[audience]
-
-    audiences[audience] = audienceJobs.filter(job => {
+    const newJobs = response.data.result.filter(job => {
       if (jobs.includes(job)) return false
       return true
     })
 
-    const response = await this.api.post('/', { audiences })
+    response = await this.api.put(`/audiences/${audienceName}/jobs`, newJobs)
     return response
   } catch (error) {
     console.error(error)
@@ -40,13 +38,9 @@ module.exports.deleteJob = async ({ audience, jobs }) => {
   }
 }
 
-module.exports.addAudience = async ({ audience }) => {
+module.exports.addAudience = async ({ name, id }) => {
   try {
-    let audiences = await this.getAudiences()
-
-    audiences[audience] = [audience]
-
-    const response = await this.api.post('/', { audiences })
+    const response = await this.api.post(`/audiences/${name}`, { id, jobs: [name] })
 
     return response
   } catch (error) {
@@ -55,20 +49,15 @@ module.exports.addAudience = async ({ audience }) => {
   }
 }
 
-module.exports.getJobsByAudience = async ({ audience }) => {
+module.exports.getJobsByAudience = async ({ audienceName }) => {
   try {
-    let audiences = await this.getAudiences()
+    let response = await this.api.get(`/audiences/${audienceName}/jobs`)
 
-    let audienceJobs = audiences[audience] || []
+    let audienceJobs = response.data.result || []
 
     return audienceJobs
   } catch (error) {
     console.error(error)
     process.exit(0)
   }
-}
-
-module.exports.getAudiences = async () => {
-  const response = await this.api.get()
-  return response.data['result'] ? response.data['result']['audiences'] : {}
 }

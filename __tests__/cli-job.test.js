@@ -1,5 +1,7 @@
 const { system, filesystem } = require('gluegun')
 
+jest.setTimeout(30000)
+
 describe('Test command add emails', function() {
   const src = filesystem.path(__dirname, '..')
 
@@ -11,14 +13,8 @@ describe('Test command add emails', function() {
     expect(output).toContain('Example to add jobs')
   })
 
-  test('should delete job to audience', async () => {
-    await cli('j audfrontend frontend --add')
-    const output = await cli('j audfrontend frontend --delete')
-
-    expect(output).toContain('Jobs delete with success')
-  })
-
   test('should show list of job for an audience', async () => {
+    await cli('aud audfrontend frontend --add')
     await cli('j audfrontend frontend --add')
     const output = await cli('j audfrontend --list')
 
@@ -26,8 +22,15 @@ describe('Test command add emails', function() {
   })
 
   test('should add job to audience', async () => {
+    await cli('aud audfrontend frontend --add')
     const output = await cli('j audfrontend frontend --add')
 
     expect(output).toContain('Jobs added with success')
+  })
+
+  test('should delete job to audience', async () => {
+    const output = await cli('j audfrontend frontend --delete')
+
+    expect(output).toContain('Jobs delete with success')
   })
 })
