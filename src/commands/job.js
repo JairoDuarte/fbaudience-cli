@@ -28,7 +28,7 @@ module.exports = {
     }
 
     if (action.delete) {
-      const audiences = await databaseService.deleteJob({ audienceName, jobs })
+      await databaseService.deleteJob({ audienceName, jobs })
       print.success('Jobs delete with success')
     }
 
