@@ -10,7 +10,7 @@ describe('Test command add emails', function () {
   test('should output helper', async () => {
     const output = await cli('j --help')
 
-    expect(output).toContain('Example to add jobs')
+    expect(output).toContain('usage: fbaudience j [<args>] [--] <action>')
   })
 
   test('should show list of job for an audience', async () => {
