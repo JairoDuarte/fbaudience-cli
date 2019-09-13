@@ -3,12 +3,12 @@ name: test of integration
 on:
   pull_request:
     branches:
-      - feauture/*
+      - feature/*
       - develop
   push:
     branches:
       - develop
-      - feauture/*
+      - feature/*
 
 jobs:
   lint:
