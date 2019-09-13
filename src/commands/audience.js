@@ -5,7 +5,8 @@ const databaseService = require('../services/database')
 
 module.exports = {
   name: 'audience',
-  alias: 'aud',
+  alias: 'a',
+  description: 'Add and show audiences',
   run: async toolbox => {
     const { print, parameters, api } = toolbox
     databaseService.init(api)
@@ -14,7 +15,7 @@ module.exports = {
     const description = parameters.second
     const action = parameters.options
 
-    if (action.add) {
+    if (action.add || action.a) {
       const apiService = api()
       if (!name || !description) {
         return print.error('name and description are required')
@@ -26,7 +27,7 @@ module.exports = {
       print.success('Audience added with success')
     }
 
-    if (action.list) {
+    if (action.list || action.l) {
       const apiService = api()
 
       const audiences = await facebookService.getAudiences(apiService)
@@ -34,6 +35,16 @@ module.exports = {
       audiences.forEach(audience => {
         print.success(`id: ${audience.id} name: ${audience.name}`)
       })
+    }
+
+    if (action.h || action.help) {
+      print.info('usage: fbaudience a [<args>] [--] <action>')
+      print.info('\t args:')
+      print.info('\t \t first \t \t \t name of audience (required)')
+      print.info('\t \t second \t \t description of audience (required)')
+      print.info('\t options:')
+      print.info('\t \t -a, --add \t \t add an audience to facebook')
+      print.info('\t \t -l, --list \t \t show  all audiences in facebook \n\n')
     }
   }
 }

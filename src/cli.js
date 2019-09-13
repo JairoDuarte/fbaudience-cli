@@ -3,7 +3,7 @@ const { build } = require('gluegun')
 /**
  * Create the cli and kick it off
  */
-async function run (argv) {
+async function run(argv) {
   // create a CLI runtime
   const cli = build()
     .brand('fbaudience')
@@ -11,6 +11,7 @@ async function run (argv) {
     .plugins('./node_modules', { matching: 'fbaudience-*', hidden: true })
     .help() // provides default for help, h, --help, -h
     .version() // provides default for version, v, --version, -v
+    .defaultCommand()
     .create()
 
   // and run it
