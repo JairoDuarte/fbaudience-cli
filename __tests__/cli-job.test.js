@@ -14,7 +14,7 @@ describe('Test command add emails', function () {
   })
 
   test('should show list of job for an audience', async () => {
-    await cli('aud audfrontend frontend --add')
+    await cli('a audfrontend frontend --add')
     await cli('j audfrontend frontend --add')
     const output = await cli('j audfrontend --list')
 
@@ -22,7 +22,7 @@ describe('Test command add emails', function () {
   })
 
   test('should add job to audience', async () => {
-    await cli('aud audfrontend frontend --add')
+    await cli('a audfrontend frontend --add')
     const output = await cli('j audfrontend frontend --add')
 
     expect(output).toContain('Jobs added with success')

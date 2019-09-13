@@ -61,3 +61,14 @@ module.exports.getJobsByAudience = async ({ audienceName }) => {
     process.exit(0)
   }
 }
+
+module.exports.deleteAudience = async ({ audienceName }) => {
+  try {
+    const response = await this.api.delete(`/audiences/${audienceName}`)
+
+    return response
+  } catch (error) {
+    console.error(error)
+    process.exit(0)
+  }
+}

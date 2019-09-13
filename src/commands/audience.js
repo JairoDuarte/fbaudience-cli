@@ -37,6 +37,12 @@ module.exports = {
       })
     }
 
+    if (action.delete || action.d) {
+      const response = await databaseService.deleteAudience({ audienceName: name })
+
+      return response.status === 201 ? print.success('audience delete with success') : print.error(response)
+    }
+
     if (action.h || action.help) {
       print.info('usage: fbaudience a [<args>] [--] <action>')
       print.info('\t args:')
