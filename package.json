@@ -1,6 +1,6 @@
 {
   "name": "fbaudience",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI to create facebook business audience and add  users",
   "bin": {
     "fbaudience": "bin/fbaudience"
