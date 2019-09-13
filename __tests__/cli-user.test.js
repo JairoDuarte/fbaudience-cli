@@ -13,7 +13,7 @@ describe('Test command add emails', function () {
 
   test('should add emails to audience', async () => {
     await cli('audience addEmailstest description --add')
-    const output = await cli('u addEmailstest test@gmail.com unitedremote@gmail.com')
+    const output = await cli('u addEmailstest test@gmail.com unitedremote@gmail.com -a')
 
     expect(output).toContain('Emails added with success')
   })

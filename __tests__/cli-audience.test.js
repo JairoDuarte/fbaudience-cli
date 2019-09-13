@@ -12,13 +12,19 @@ describe('Test command add audience', function () {
   })
 
   test('should add audience', async () => {
-    const output = await cli(' audience audiencetest audiencetest --add')
+    const output = await cli('a audiencetest audiencetest --add')
 
     expect(output).toContain('Audience added with success')
   })
 
+  test('should delete audience in our database', async () => {
+    const output = await cli('a audiencetest -d')
+
+    expect(output).toContain('audience delete with success')
+  })
+
   test('should list all audience', async () => {
-    const output = await cli(' audience   --list')
+    const output = await cli('a   --list')
 
     expect(output).toContain(' name')
   })
