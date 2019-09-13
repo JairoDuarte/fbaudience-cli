@@ -28,6 +28,34 @@ fbaudience is a CLI for Facebook business audience that helps you manage your au
 $ npm i fbaudience -g
 ```
 
+## Example
+
+> Audiences
+
+```
+fbaudience a developers "developers in facebook" -a // add audience developers
+fbaudience a -l // show all audiences
+fbaudience a developers -d // delete audience developers
+
+```
+> Jobs
+
+```
+fbaudience j developers "backend engineer" -a // add job to audience developers
+fbaudience j developers -l // show all jobs of developers
+fbaudience j developers "backend engineer" -d // delete audience developers
+```
+
+>  Emails
+
+```
+
+fbaudience u developers stive@ur.com -a // add email to audience
+fbaudience u developers bill@ur.com turin@gmail.com -a // add emails to audience
+```
+
+> for all commands please show helpers. like fbaudience {command} -h
+
 ## Contribution
 
 Thanks for being interested on making this package better. We encourage everyone to help improving this project with some new features, bug fixes and performance issues.

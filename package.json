@@ -1,6 +1,6 @@
 {
   "name": "fbaudience",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "CLI to create facebook business audience and add  users",
   "bin": {
     "fbaudience": "bin/fbaudience"
@@ -12,7 +12,8 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "ci": "yarn lint && yarn test"
   },
   "files": [
     "src",
